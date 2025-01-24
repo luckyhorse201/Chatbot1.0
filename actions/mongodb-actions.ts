@@ -17,7 +17,7 @@ export async function fetchFAQS() {
 
         console.log('FAQS from MongoDb', faqs);
 
-        if (!faqs) {ai agent
+        if (!faqs) {
             throw new Error("Error fetching data from db!");
         }
 
