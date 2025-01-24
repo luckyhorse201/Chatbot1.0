@@ -16,37 +16,34 @@ const openAI = new OpenAI({
  */
 export async function chatCompletion(chatMessages: Message[]) {
   try {
+
     console.log("FROM BACKEND", chatMessages);
 
     // Fetch FAQS from DB
-    const document: FAQDocument | null = await fetchFAQS();
+    // const document: FAQDocument | null = await fetchFAQS();
 
-    if (!document) {
-      throw new Error('Error fetching FAQS');
-    }
+    // if (!document) {
+    //   throw new Error('Error fetching FAQS');
+    // }
 
-    // checking if the user question is in the FAQ array
-    const faqsAnswer = document.faqs.find((faq) =>
-      chatMessages
-        .at(-1)
-        ?.content.toLowerCase()
-        .includes(faq.question.toLowerCase()),
-    );
+    // // checking if the user question is in the FAQ array
+    // const faqsAnswer = document.faqs.find((faq) =>
+    //   chatMessages
+    //     .at(-1)
+    //     ?.content.toLowerCase()
+    //     .includes(faq.question.toLowerCase()),
+    // );
 
-    if (faqsAnswer) {
-      console.log(faqsAnswer);
-      return { role: "assistant", content: faqsAnswer.answer } as Message;
-    }
+    // if (faqsAnswer) {
+    //   console.log(faqsAnswer);
+    //   return { role: "assistant", content: faqsAnswer.answer } as Message;
+    // }
 
-    console.log(`Reaching out to OPENAI API...`);
+    // console.log(`Reaching out to OPENAI API...`);
 
     // Chat to be send to OPEN AI
     const chat = [
       { role: "system", content: "You are a helpful assistant" },
-      ...document.faqs.map((faq) => ({
-        role: "system",
-        content: `Q: ${faq.question}\nA: ${faq.answer}`,
-      })),
       ...chatMessages,
     ];
 
